@@ -51,12 +51,13 @@ async def health():
             "collection_exists": stats.get("exists", False),
             "points_count": stats.get("points_count", 0),
         }
-    except Exception as e:
+    except Exception:
         # Return basic health even if vector store fails to initialize
+        # Don't expose exception details for security
         return {
-            "status": "healthy",
+            "status": "degraded",
             "collection": settings.qdrant_collection,
-            "error": str(e),
+            "message": "Vector store initialization failed",
         }
 
 
@@ -80,8 +81,8 @@ async def search(request: SearchRequest):
             category_filter=request.category_filter,
         )
         return results
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception:
+        raise HTTPException(status_code=500, detail="Search operation failed")
 
 
 @app.get("/search/{query}", response_model=List[SearchResult])
@@ -112,8 +113,8 @@ async def search_get(
             category_filter=category,
         )
         return results
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception:
+        raise HTTPException(status_code=500, detail="Search operation failed")
 
 
 @app.get("/stats")
@@ -131,8 +132,8 @@ async def get_stats():
             "collection": settings.qdrant_collection,
             **stats,
         }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception:
+        raise HTTPException(status_code=500, detail="Failed to retrieve collection statistics")
 
 
 @app.post("/collection/create")
@@ -150,8 +151,8 @@ async def create_collection(recreate: bool = Query(False, description="Recreate 
         store = get_vector_store()
         store.create_collection(recreate=recreate)
         return {"message": "Collection created successfully"}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception:
+        raise HTTPException(status_code=500, detail="Failed to create collection")
 
 
 @app.delete("/collection")
@@ -166,8 +167,8 @@ async def delete_collection():
         store = get_vector_store()
         store.delete_collection()
         return {"message": "Collection deleted successfully"}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception:
+        raise HTTPException(status_code=500, detail="Failed to delete collection")
 
 
 def run_server(

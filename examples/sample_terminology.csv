@@ -1,0 +1,21 @@
+code,term,description,category
+SNOMED:22298006,Myocardial infarction,Heart attack - death of heart muscle due to lack of blood supply,Cardiology
+SNOMED:38341003,Hypertension,High blood pressure,Cardiology
+SNOMED:73211009,Diabetes mellitus,Chronic condition affecting how the body processes blood sugar,Endocrinology
+SNOMED:195967001,Asthma,Chronic respiratory condition causing breathing difficulties,Pulmonology
+SNOMED:40055000,Chronic obstructive pulmonary disease,Progressive lung disease causing breathing problems,Pulmonology
+ICD10:E11,Type 2 diabetes,Non-insulin dependent diabetes mellitus,Endocrinology
+ICD10:I10,Essential hypertension,Primary high blood pressure,Cardiology
+ICD10:J45,Asthma,Bronchial asthma,Pulmonology
+LOINC:2093-3,Cholesterol,Total cholesterol in serum or plasma,Laboratory
+LOINC:2345-7,Glucose,Glucose level in blood,Laboratory
+SNOMED:84114007,Heart failure,Condition where heart cannot pump blood effectively,Cardiology
+SNOMED:161891005,Backache,Pain in the back,Musculoskeletal
+SNOMED:25064002,Headache,Pain in the head,Neurology
+SNOMED:21522001,Abdominal pain,Pain in the abdomen,Gastroenterology
+SNOMED:49436004,Atrial fibrillation,Irregular heart rhythm,Cardiology
+ICD10:I48,Atrial fibrillation and flutter,Irregular heartbeat,Cardiology
+SNOMED:44054006,Type 2 diabetes mellitus,Non-insulin dependent diabetes,Endocrinology
+SNOMED:13645005,Chronic kidney disease,Progressive loss of kidney function,Nephrology
+SNOMED:68496003,Polyp of colon,Growth in the colon,Gastroenterology
+SNOMED:363406005,Malignant neoplasm of colon,Colon cancer,Oncology

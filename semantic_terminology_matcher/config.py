@@ -1,12 +1,18 @@
 """
 Configuration settings for Semantic Terminology Matcher
 """
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
+from pydantic import ConfigDict
 from typing import Optional
 
 
 class Settings(BaseSettings):
     """Application settings"""
+    
+    model_config = ConfigDict(
+        env_file=".env",
+        env_prefix="STM_"
+    )
     
     # Qdrant settings
     qdrant_host: str = "localhost"
@@ -22,10 +28,6 @@ class Settings(BaseSettings):
     # API settings
     api_host: str = "0.0.0.0"
     api_port: int = 8000
-    
-    class Config:
-        env_file = ".env"
-        env_prefix = "STM_"
 
 
 settings = Settings()

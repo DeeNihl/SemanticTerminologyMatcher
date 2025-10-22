@@ -16,6 +16,9 @@ A tool for loading medical/clinical terminology from CSV files into a Qdrant vec
 
 - Python 3.9 or higher
 - Qdrant (optional - can use in-memory mode for testing)
+- Internet access to download sentence-transformers models from HuggingFace on first run
+
+**Note**: The embedding model (`sentence-transformers/all-MiniLM-L6-v2`) will be downloaded automatically on first use. This requires access to huggingface.co. In restricted environments, you can pre-download the model or use a local model cache.
 
 ### Install from source
 

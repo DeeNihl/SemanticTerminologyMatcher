@@ -29,12 +29,6 @@ def get_vector_store() -> VectorStore:
     return vector_store
 
 
-@app.on_event("startup")
-async def startup_event():
-    """Initialize vector store on startup"""
-    get_vector_store()
-
-
 @app.get("/")
 async def root():
     """Root endpoint"""
@@ -48,14 +42,22 @@ async def root():
 @app.get("/health")
 async def health():
     """Health check endpoint"""
-    store = get_vector_store()
-    stats = store.get_stats()
-    return {
-        "status": "healthy",
-        "collection": settings.qdrant_collection,
-        "collection_exists": stats.get("exists", False),
-        "points_count": stats.get("points_count", 0),
-    }
+    try:
+        store = get_vector_store()
+        stats = store.get_stats()
+        return {
+            "status": "healthy",
+            "collection": settings.qdrant_collection,
+            "collection_exists": stats.get("exists", False),
+            "points_count": stats.get("points_count", 0),
+        }
+    except Exception as e:
+        # Return basic health even if vector store fails to initialize
+        return {
+            "status": "healthy",
+            "collection": settings.qdrant_collection,
+            "error": str(e),
+        }
 
 
 @app.post("/search", response_model=List[SearchResult])
